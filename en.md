@@ -1,77 +1,79 @@
-## 4.2.6 Sử dụng những file tùy chọn
+## 4.2.6 Using Option Files
 
-Hầu hết các chương trình MySQL có thể đọc các tùy chọn khởi động từ các file tùy chọn (đôi khi được gọi là file cấu hình). Các file tùy chọn cung cấp một cách thuận tiện để chỉ định các tùy chọn được sử dụng để chúng không được nhập vào dòng lệnh mỗi khi bạn chạy một chương trình. 
+Most MySQL programs can read startup options from option files (sometimes called configuration files). Option files provide a convenient way to specify commonly used options so that they need not be entered on the command line each time you run a program.
 
+To determine whether a program reads option files, invoke it with the `--help` option. (For [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server"), use [`--verbose`](server-options.html#option_mysqld_verbose) and [`--help`](server-options.html#option_mysqld_help).) If the program reads option files, the help message indicates which files it looks for and which option groups it recognizes.
 
-Để xác định một đọc các file tùy chọn hay không, hãy gọi nó bằng tùy chọn `--help`. (Đối với **mysqld** , sử dụng `--verbose` và `--help`.) Nếu chương trình đọc các file tùy chọn, tin nhắn trợ giúp cho biết file nào nó tìm và nhóm tùy chọn nào nó nhận ra.
+Note
 
-Ghi chú
+A MySQL program started with the `--no-defaults` option reads no option files other than `.mylogin.cnf`.
 
-Một chương trình MySQL đã bắt đầu với tùy chọn `--no-defaults` không đọc những file tùy chọn khác trừ `.mylogin.cnf`.
+Many option files are plain text files, created using any text editor. The exception is the `.mylogin.cnf` file that contains login path options. This is an encrypted file created by the [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility") utility. See [Section 4.6.6, “**mysql\_config\_editor** — MySQL Configuration Utility”](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility"). A “login path” is an option group that permits only certain options: `host`, `user`, `password`, `port` and `socket`. Client programs specify which login path to read from `.mylogin.cnf` using the [`--login-path`](option-file-options.html#option_general_login-path) option.
 
+To specify an alternative login path file name, set the `MYSQL_TEST_LOGIN_FILE` environment variable. This variable is used by the **mysql-test-run.pl** testing utility, but also is recognized by [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility") and by MySQL clients such as [**mysql**](mysql.html "4.5.1 mysql — The MySQL Command-Line Tool"), [**mysqladmin**](mysqladmin.html "4.5.2 mysqladmin — Client for Administering a MySQL Server"), and so forth.
 
-Nhiều file tùy chọn là những file văn bản thuần, được tạo bằng bất cứ trình chỉnh sửa nào. Ngoại lệ là file `.mylogin.cnf` nó chứa tùy chọn đường dẫn đăng nhập. Đây là một file mã hóa được tạo bởi tiện ích [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility"). Nhìn [Mục 4.6.6, “**mysql\_config\_editor** — Tiện ích cấu hình MySQL”](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility"). Một 'đường dẫn đăng nhập' là một nhóm tùy chọn chỉ cho phép trong những tùy chọn chắc chắn sau đây: `host`, `user`, `password`, `port` và `socket`. Chương trình khách hàng chỉ định đường dẫn đăng nhập để đọc từ `.mylogin.cnf` sử dụng tùy chọn [`--login-path`](option-file-options.html#option_general_login-path).
+MySQL looks for option files in the order described in the following discussion and reads any that exist. If an option file you want to use does not exist, create it using the appropriate method, as just discussed.
 
-Để chỉ đinh một sự thay thế tên file đường dẫn đăng nhập, hãy đặt biến môi trường `MYSQL_TEST_LOGIN_FILE`. Biến này được sử dụng bởi tiện ích kiểm tra **mysql-test-run.pl**, nhưng cũng được công nhận bởi [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility") và bởi những MySQL khách ví dụ như [**mysql**](mysql.html "4.5.1 mysql — The MySQL Command-Line Tool"), [**mysqladmin**](mysqladmin.html "4.5.2 mysqladmin — Client for Administering a MySQL Server"), và vân vân.
+Note
 
-MySQL tìm kiếm những file tùy chọn trong mô tả theo thứ tự tại phần thảo luận sau và đọc bất cứ cái nào tồn tại. Nếu một file tùy chọn bạn muốn sử dụng không tồn tại, tạo nó bằng phương thức thích hợp, như vừa thảo luận.
+Option files used with NDB Cluster programs are covered in [Section 21.3, “Configuration of NDB Cluster”](mysql-cluster-configuration.html "21.3 Configuration of NDB Cluster").
 
-Ghi chú
+On Windows, MySQL programs read startup options from the files shown in the following table, in the specified order (files listed first are read first, files read later take precedence).
 
-Những file tùy chọn sử dụng với chương trình NDB Cluster được trình bày trong [Phần 21.3, Cấu hình của NDB Cluster”](mysql-cluster-configuration.html "21.3 Configuration of NDB Cluster").
+**Table 4.1 Option Files Read on Windows Systems**
 
-Trên Windows, chương trình MySQL đọc những tùy chọn khởi động từ những file được hiển thị tại bảng dưới đây, theo thứ tự cụ thể (những file liệt kê trước đọc trước, rồi đến những file sau được đọc sau).
-
-**Bảng những file tùy chọn 4.1 trong hệ thống Windows**
-
-| Tên file | Mục đích |
+|File Name | Purpose |
 |---|---|
-| ```%PROGRAMDATA%\MySQL\MySQL Server 5.7\my.ini```,  ```%PROGRAMDATA%\MySQL\MySQL Server 5.7\my.cnf``` | Tùy chọn chung |
-| `` %WINDIR%\my.ini``, `` %WINDIR%\my.cnf`` | Tùy chọn chung |
-| `C:\my.ini`, `C:\my.cnf` | Tùy chọn chung |
-| ``_BASEDIR_\my.ini``, ``_BASEDIR_\my.cnf`` | Tùy chọn chung |
-| `defaults-extra-file` | File quy định với [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), nếu có |
-| ` %APPDATA%\MySQL\.mylogin.cnf` |  Tùy chọn đường dẫn đăng nhập (chỉ khách) |
-
-
-Trong bảng trên, `%PROGRAMDATA%` đại diện cho thư mục file hệ thống chứa dữ liệu ứng dụng cho tất cả người dùng trên máy chủ. Đường dẫn này mặc định tại `C:\ProgramData` trên Windows Vista trở lên `C:\Documents` và `Settings\All Users\Application Data` trên các phiên bản cũ hơn của Windows.
-
-
-
-`%WINDIR%` đại diện vị trí thư mục Windows của bạn. Nó thường là `C:\WINDOWS`. Sử dụng lệnh sau để xác định vị trí chính xác từ giá trị của biến môi trường `WINDIR`.
-
-`C:\> echo %WINDIR%`
-
-
-
-`%APPDATA%` đại diện giá trị của thư mục dữ liệu ứng dụng Windows. Dử dụng lệnh sau để xác định vị trí chính xác từ giá trị của biến môi trường `APPDATA`.
-
-`C:\> echo %APPDATA%`
-
-
-_`BASEDIR`_ đại diện cho thư mục cài đặt nền tảng. Khi MySQL 5.7 được cài đặt bằng MySQL Installer, nó thường là``C:\_`PROGRAMDIR`_\MySQL\MySQL 5.7 Server`` tại _`PROGRAMDIR`_ đại diện cho thư mục chương trình (thường `Program Files` trong bản Windows tiếng Anh), Xem tại [Phần 2.3.3, “MySQL Installer cho Windows”](mysql-installer.html "2.3.3 MySQL Installer for Windows").
-
-Trên Unix và hệ thống tương tự, chương trình MySQL đọc file tùy chọn khởi động từ những file được ghi trong bảng dưới đây, theo thứ tự cụ thể (những file liệt kê trước đọc trước, rồi đến những file sau được đọc sau);
-
-Ghi chú
-
-Trên nền tảng Unix, MySQL loại trừ những file cấu hình mà nó có thể ghi bởi bất cứ ai. Đây là ý định giống như một biện pháp an ninh.
-
-**Bảng 4.2 những file tùy chọn được đọc trên các hệ thống giống Unix và Unix**
-
-| Tên file | Mục đích |
-|---|---|
-| `/etc/my.cnf` | Tùy chọn chung |
-| `/etc/mysql/my.cnf` | Tùy chọn chung |
-| ``_`SYSCONFDIR`_/my.cnf`` | Tùy chọn chung |
-| `$MYSQL_HOME/my.cnf` | Tùy chọn máy chủ cụ thể (chỉ dành cho máy chủ) |
-| `defaults-extra-file` | Tệp được chỉ định [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), nếu có |
-| `~/.my.cnf` | Tùy chọn người dùng cụ thể |
-| `~/.mylogin.cnf` | Tùy chọn đường dẫn đăng nhập người dùng cụ thể (chỉ khách) |
+| ```%PROGRAMDATA%\MySQL\MySQL Server 5.7\my.ini```,  ```%PROGRAMDATA%\MySQL\MySQL Server 5.7\my.cnf``` | Global options |
+| `` %WINDIR%\my.ini``, `` %WINDIR%\my.cnf`` | Global options |
+| `C:\my.ini`, `C:\my.cnf` | Global options |
+| ``_BASEDIR_\my.ini``, ``_BASEDIR_\my.cnf`` | Global options |
+| `defaults-extra-file` | The file specified with [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), if any |
+| ` %APPDATA%\MySQL\.mylogin.cnf` |  Login path options (clients only) |
 
   
 
-Trong bảng trên, `~` đại diện cho thư mục chính của người dùng hiện tại (giá trị của )`$HOME`
+In the preceding table, `%PROGRAMDATA%` represents the file system directory that contains application data for all users on the host. This path defaults to `C:\ProgramData` on Microsoft Windows Vista and greater, and `C:\Documents and Settings\All Users\Application Data` on older versions of Microsoft Windows.
+
+`%WINDIR%` represents the location of your Windows directory. This is commonly `C:\WINDOWS`. Use the following command to determine its exact location from the value of the `WINDIR` environment variable:
+
+Press CTRL+C to copy
+
+ 
+
+`C:\> echo %WINDIR%`
+
+`%APPDATA%` represents the value of the Windows application data directory. Use the following command to determine its exact location from the value of the `APPDATA` environment variable:
+
+Press CTRL+C to copy
+
+ 
+
+`C:\> echo %APPDATA%`
+
+_`BASEDIR`_ represents the MySQL base installation directory. When MySQL 5.7 has been installed using MySQL Installer, this is typically ``C:\_`PROGRAMDIR`_\MySQL\MySQL 5.7 Server`` where _`PROGRAMDIR`_ represents the programs directory (usually `Program Files` on English-language versions of Windows), See [Section 2.3.3, “MySQL Installer for Windows”](mysql-installer.html "2.3.3 MySQL Installer for Windows").
+
+On Unix and Unix-like systems, MySQL programs read startup options from the files shown in the following table, in the specified order (files listed first are read first, files read later take precedence).
+
+Note
+
+On Unix platforms, MySQL ignores configuration files that are world-writable. This is intentional as a security measure.
+
+**Table 4.2 Option Files Read on Unix and Unix-Like Systems**
+
+| File Name | Purpose |
+|---|---|
+| `/etc/my.cnf` | Global options |
+| `/etc/mysql/my.cnf` | Global options |
+| ``_`SYSCONFDIR`_/my.cnf`` | Global options |
+| `$MYSQL_HOME/my.cnf` | Server-specific options (server only) |
+| `defaults-extra-file` | The file specified with [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), if any |
+| `~/.my.cnf` | User-specific options |
+| `~/.mylogin.cnf` | User-specific login path options (clients only) |
+
+  
+
+In the preceding table, `~` represents the current user's home directory (the value of `$HOME`).
 
 _`SYSCONFDIR`_ represents the directory specified with the [`SYSCONFDIR`](source-configuration-options.html#option_cmake_sysconfdir) option to **CMake** when MySQL was built. By default, this is the `etc` directory located under the compiled-in installation directory.
 
