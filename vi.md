@@ -61,37 +61,15 @@ On Unix platforms, MySQL ignores configuration files that are world-writable. Th
 
 **Table 4.2 Option Files Read on Unix and Unix-Like Systems**
 
-File Name
-
-Purpose
-
-`/etc/my.cnf`
-
-Global options
-
-`/etc/mysql/my.cnf`
-
-Global options
-
-``_`SYSCONFDIR`_/my.cnf``
-
-Global options
-
-`$MYSQL_HOME/my.cnf`
-
-Server-specific options (server only)
-
-`defaults-extra-file`
-
-The file specified with [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), if any
-
-`~/.my.cnf`
-
-User-specific options
-
-`~/.mylogin.cnf`
-
-User-specific login path options (clients only)
+| File Name | Purpose |
+|---|---|
+| `/etc/my.cnf` | Global options |
+| `/etc/mysql/my.cnf` | Global options |
+| ``_`SYSCONFDIR`_/my.cnf`` | Global options |
+| `$MYSQL_HOME/my.cnf` | Server-specific options (server only) |
+| `defaults-extra-file` | The file specified with [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), if any |
+| `~/.my.cnf` | User-specific options |
+| `~/.mylogin.cnf` | User-specific login path options (clients only) |
 
   
 
