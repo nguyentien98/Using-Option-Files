@@ -22,33 +22,17 @@ On Windows, MySQL programs read startup options from the files shown in the foll
 
 **Table 4.1 Option Files Read on Windows Systems**
 
-File Name
+|File Name | Purpose |
+|-----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 
-Purpose
+|```%PROGRAMDATA%\MySQL\MySQL Server 5.7\my.ini```,  ```%PROGRAMDATA%\MySQL\MySQL Server 5.7\my.cnf```| Global options |
+|`` `%WINDIR%`\my.ini``, `` `%WINDIR%`\my.cnf``| Global options |
 
-`` `%PROGRAMDATA%`\MySQL\MySQL Server 5.7\my.ini``, `` `%PROGRAMDATA%`\MySQL\MySQL Server 5.7\my.cnf``
+| `C:\my.ini`, `C:\my.cnf` | Global options |
 
-Global options
-
-`` `%WINDIR%`\my.ini``, `` `%WINDIR%`\my.cnf``
-
-Global options
-
-`C:\my.ini`, `C:\my.cnf`
-
-Global options
-
-``_`BASEDIR`_\my.ini``, ``_`BASEDIR`_\my.cnf``
-
-Global options
-
-`defaults-extra-file`
-
-The file specified with [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), if any
-
-`` `%APPDATA%`\MySQL\.mylogin.cnf``
-
-Login path options (clients only)
+| ``_`BASEDIR`_\my.ini``, ``_`BASEDIR`_\my.cnf`` | Global options |
+| `defaults-extra-file` | The file specified with [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), if any |
+| `` `%APPDATA%`\MySQL\.mylogin.cnf`` |  Login path options (clients only) |
 
   
 
