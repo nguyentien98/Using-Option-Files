@@ -1,4 +1,4 @@
-### 4.2.6 Using Option Files
+## 4.2.6 Using Option Files
 
 Most MySQL programs can read startup options from option files (sometimes called configuration files). Option files provide a convenient way to specify commonly used options so that they need not be entered on the command line each time you run a program.
 
