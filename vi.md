@@ -25,11 +25,11 @@ On Windows, MySQL programs read startup options from the files shown in the foll
 |File Name | Purpose |
 |---|---|
 | ```%PROGRAMDATA%\MySQL\MySQL Server 5.7\my.ini```,  ```%PROGRAMDATA%\MySQL\MySQL Server 5.7\my.cnf``` | Global options |
-| `` `%WINDIR%`\my.ini``, `` `%WINDIR%`\my.cnf`` | Global options |
+| `` %WINDIR%\my.ini``, `` %WINDIR%\my.cnf`` | Global options |
 | `C:\my.ini`, `C:\my.cnf` | Global options |
-| ``_`BASEDIR`_\my.ini``, ``_`BASEDIR`_\my.cnf`` | Global options |
+| ``_BASEDIR_\my.ini``, ``_BASEDIR_\my.cnf`` | Global options |
 | `defaults-extra-file` | The file specified with [`--defaults-extra-file`](option-file-options.html#option_general_defaults-extra-file), if any |
-| `` `%APPDATA%`\MySQL\.mylogin.cnf`` |  Login path options (clients only) |
+| ` %APPDATA%\MySQL\.mylogin.cnf` |  Login path options (clients only) |
 
   
 
