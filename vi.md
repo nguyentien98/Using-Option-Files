@@ -73,37 +73,37 @@ Trên nền tảng Unix, MySQL loại trừ những file cấu hình mà nó có
 
 Trong bảng trên, `~` đại diện cho thư mục chính của người dùng hiện tại (giá trị của )`$HOME`
 
-_`SYSCONFDIR`_ represents the directory specified with the [`SYSCONFDIR`](source-configuration-options.html#option_cmake_sysconfdir) option to **CMake** when MySQL was built. By default, this is the `etc` directory located under the compiled-in installation directory.
+_`SYSCONFDIR`_ đại diện cho thư mục đã chỉ định với tùy chọn [`SYSCONFDIR`](source-configuration-options.html#option_cmake_sysconfdir) cho **CMake** khi MySQL được xây dựng. Theo mặc đinh, đây là thư mục `etc` nằm dưới thư mục cài đặt đã compile.
 
-`MYSQL_HOME` is an environment variable containing the path to the directory in which the server-specific `my.cnf` file resides. If `MYSQL_HOME` is not set and you start the server using the [**mysqld_safe**](mysqld-safe.html "4.3.2 mysqld_safe — MySQL Server Startup Script") program, [**mysqld_safe**](mysqld-safe.html "4.3.2 mysqld_safe — MySQL Server Startup Script") sets it to _`BASEDIR`_, the MySQL base installation directory.
+`MYSQL_HOME` là một biến môi trường chứa đường dẫn đến thư mục trong file `my.cnf` của máy chủ cụ thể. Nếu `MYSQL_HOME` chưa được cài và bạn khởi động máy chủ bằng chương trình [**mysqld_safe**](mysqld-safe.html "4.3.2 mysqld_safe — MySQL Server Startup Script"), [**mysqld_safe**](mysqld-safe.html "4.3.2 mysqld_safe — MySQL Server Startup Script") sẽ đặt nó vào _`BASEDIR`_, thư mục cài đặt nền tảng MySQL.
 
-_`DATADIR`_ is commonly `/usr/local/mysql/data`, although this can vary per platform or installation method. The value is the data directory location built in when MySQL was compiled, not the location specified with the [`--datadir`](server-options.html#option_mysqld_datadir) option when [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server") starts. Use of [`--datadir`](server-options.html#option_mysqld_datadir) at runtime has no effect on where the server looks for option files that it reads before processing any options.
+_`DATADIR`_ thường là `/usr/local/mysql/data`, mặc dù nó có thể thay đổi trên nền tảng hoặc phương thức cài đặt. Giá trị là nơi thư mục dữ liệu đã được xây dựng khi MySQL được compile, không phải nơi được chỉ định với tùy chọn [`--datadir`](server-options.html#option_mysqld_datadir) khi [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server") khởi động. Sử dụng [`--datadir`](server-options.html#option_mysqld_datadir) trong lúc chạy không ảnh hướng đến nơi mà máy chủ tìm kiếm những file tùy chọn mà nó đọc trước khi thực thi bất cứ tùy chọn nào.
 
-If multiple instances of a given option are found, the last instance takes precedence, with one exception: For [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server"), the _first_ instance of the [`--user`](server-options.html#option_mysqld_user) option is used as a security precaution, to prevent a user specified in an option file from being overridden on the command line.
+Nếu nhiều trường hợp của một tùy chọn được tìm thấy, trường hợp cuối cùng sẽ lấy cái trước đó, với một ngoại lệ: Với [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server"), trường hợp đầu tiên của tùy chọn [`--user`](server-options.html#option_mysqld_user) được sử dụng giống như một biện pháp an ninh, để ngặn chặn một người dùng cụ thể trong file tùy chọn từ sự ghi đè trong dòng lệnh.
 
-The following description of option file syntax applies to files that you edit manually. This excludes `.mylogin.cnf`, which is created using [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility") and is encrypted.
+Phần mô tả dươi đây của cú pháp file tùy chọn áp dụng cho những file mà bạn chỉnh sửa thủ công. Điều này không bao gồm `.mylogin.cnf`, nó được tại ra bằng [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility") và được mã hóa.
 
-Any long option that may be given on the command line when running a MySQL program can be given in an option file as well. To get the list of available options for a program, run it with the `--help` option. (For [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server"), use [`--verbose`](server-options.html#option_mysqld_verbose) and [`--help`](server-options.html#option_mysqld_help).)
+Bất cứ tùy chọn dài nào có thể đưa ra trong dòng lệnh khi chạy một chương trình MySQL có thể đưa ra trong một file tùy chọn. Để lấy một danh sách tùy chọn khả dụng cho một chương trình, chạy nó với tùy chọn `--help`. (Với [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server"), sử dụng [`--verbose`](server-options.html#option_mysqld_verbose) và [`--help`](server-options.html#option_mysqld_help).)
 
-The syntax for specifying options in an option file is similar to command-line syntax (see [Section 4.2.4, “Using Options on the Command Line”](command-line-options.html "4.2.4 Using Options on the Command Line")). However, in an option file, you omit the leading two dashes from the option name and you specify only one option per line. For example, `--quick` and `--host=localhost` on the command line should be specified as `quick` and `host=localhost` on separate lines in an option file. To specify an option of the form ``--loose-_`opt_name`_`` in an option file, write it as ``loose-_`opt_name`_``.
+Cứ pháp cho những tùy chọn chỉ định trong một file tùy chọn là giống nhau trên dòng lệnh (xem [Phần 4.2.4, “Sử dụng tùy chọn trên Command Line”](command-line-options.html "4.2.4 Using Options on the Command Line")). Tuy nhiên trong một file tùy chọn, bạn bỏ qua hai gạch đầu dòng từ tên tùy chọn và bạn chỉ định duy nhất một tùy chọn một dòng. Ví dụ, `--quick` và `--host=localhost` trên dòng lệnh bạn nên chỉ định như `quick` và `host=localhost` trên những dòng riêng biệt trên một file tùy chọn. Để chỉ định một tùy chọn của biểu mẫu ``--loose-_`opt_name`_`` trong một file tùy chọn, hãy viết nó như sau ``loose-_`opt_name`_``.
 
-Empty lines in option files are ignored. Nonempty lines can take any of the following forms:
+Những dòng trống trong những file tùy chọn bị bỏ bỏ. Những dòng còn lại có thể như bất cứ dạng sau:
 
 *   ``#_`comment`_``, ``;_`comment`_``
     
-    Comment lines start with `#` or `;`. A `#` comment can start in the middle of a line as well.
+    Dòng comment bắt đầu với `#` hoặc `;`. Một `#` comment có thể bắt đầu ở giữa dòng vẫn được.
     
 *   ``[_`group`_]``
     
-    _`group`_ is the name of the program or group for which you want to set options. After a group line, any option-setting lines apply to the named group until the end of the option file or another group line is given. Option group names are not case-sensitive.
+    _`group`_ là tên của chương trình hoặc nhóm cho cái bạn muốn đặt tùy chọn. Sau một nhóm dòng, bất cứ dòng cài đặt tùy chọn nào đều áp dụng cho đặt tên nhóm cho đến cưới cùng của file tùy chọn hoặc một nhóm dòng khác được đưa ra. Tên nhóm tùy chọn không phải trường hợp nhạy cảm.
     
 *   ``_`opt_name`_``
     
-    This is equivalent to ``--_`opt_name`_`` on the command line.
+    Nó tương đương với ``--_`opt_name`_`` trên dòng lệnh.
     
 *   ``_`opt_name`_=_`value`_``
-    
-    This is equivalent to ``--_`opt_name`_=_`value`_`` on the command line. In an option file, you can have spaces around the `=` character, something that is not true on the command line. The value optionally can be enclosed within single quotation marks or double quotation marks, which is useful if the value contains a `#` comment character.
+        
+    Nó tương đương với ``--_`opt_name`_=_`value`_`` trên dòng lệnh. Trong một file tùy chọn, bạn có thể dùng dấu cách trước và sau ký tự `=`, một số không đúng trên dòng lệnh. Giá trị tùy chọn có thể được đi kèm với một hoặc hai dấu ngoặc kép, nó hữu dụng nếu giá trị chứa một ký tự comment `#`. 
     
 
 Leading and trailing spaces are automatically deleted from option names and values.
