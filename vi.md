@@ -7,12 +7,12 @@ Hầu hết các chương trình MySQL có thể đọc các tùy chọn khởi 
 
 Ghi chú
 
-Một chương trình MySQL đã bắt đầu với tùy chọn `--no-defaults` không đọc những file tùy chọn khác trừ `.mylogin.cnf`.
+Một chương trình MySQL đã bắt đầu với tùy chọn `--no-defaults`  sẽ chỉ đọc cấu hình từ file `.mylogin.cnf`.
 
 
-Nhiều file tùy chọn là những file văn bản thuần, được tạo bằng bất cứ trình chỉnh sửa nào. Ngoại lệ là file `.mylogin.cnf` nó chứa tùy chọn đường dẫn đăng nhập. Đây là một file mã hóa được tạo bởi tiện ích [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility"). Nhìn [Mục 4.6.6, “**mysql\_config\_editor** — Tiện ích cấu hình MySQL”](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility"). Một 'đường dẫn đăng nhập' là một nhóm tùy chọn chỉ cho phép trong những tùy chọn chắc chắn sau đây: `host`, `user`, `password`, `port` và `socket`. Chương trình khách hàng chỉ định đường dẫn đăng nhập để đọc từ `.mylogin.cnf` sử dụng tùy chọn [`--login-path`](option-file-options.html#option_general_login-path).
+Nhiều file tùy chọn là những file văn bản thuần, được tạo bằng bất cứ trình soạn thảo nào. Ngoại lệ là file `.mylogin.cnf` nó chứa tùy chọn đường dẫn đăng nhập. Đây là một file mã hóa được tạo bởi tiện ích [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility"). Nhìn [Mục 4.6.6, “**mysql\_config\_editor** — Tiện ích cấu hình MySQL”](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility"). Một 'đường dẫn đăng nhập' là một nhóm tùy chọn chỉ cho phép trong những tùy chọn chắc chắn sau đây: `host`, `user`, `password`, `port` và `socket`. Chương trình client chỉ định đường dẫn đăng nhập để đọc từ `.mylogin.cnf` sử dụng tùy chọn [`--login-path`](option-file-options.html#option_general_login-path).
 
-Để chỉ đinh một sự thay thế tên file đường dẫn đăng nhập, hãy đặt biến môi trường `MYSQL_TEST_LOGIN_FILE`. Biến này được sử dụng bởi tiện ích kiểm tra **mysql-test-run.pl**, nhưng cũng được công nhận bởi [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility") và bởi những MySQL khách ví dụ như [**mysql**](mysql.html "4.5.1 mysql — The MySQL Command-Line Tool"), [**mysqladmin**](mysqladmin.html "4.5.2 mysqladmin — Client for Administering a MySQL Server"), và vân vân.
+Để chỉ đinh một sự thay thế tên file đường dẫn đăng nhập, hãy đặt biến môi trường `MYSQL_TEST_LOGIN_FILE`. Biến này được sử dụng bởi tiện ích kiểm tra **mysql-test-run.pl**, nhưng cũng được công nhận bởi [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility") và bởi những MySQL client ví dụ như [**mysql**](mysql.html "4.5.1 mysql — The MySQL Command-Line Tool"), [**mysqladmin**](mysqladmin.html "4.5.2 mysqladmin — Client for Administering a MySQL Server"), và vân vân.
 
 MySQL tìm kiếm những file tùy chọn trong mô tả theo thứ tự tại phần thảo luận sau và đọc bất cứ cái nào tồn tại. Nếu một file tùy chọn bạn muốn sử dụng không tồn tại, tạo nó bằng phương thức thích hợp, như vừa thảo luận.
 
@@ -20,7 +20,7 @@ Ghi chú
 
 Những file tùy chọn sử dụng với chương trình NDB Cluster được trình bày trong [Phần 21.3, Cấu hình của NDB Cluster”](mysql-cluster-configuration.html "21.3 Configuration of NDB Cluster").
 
-Trên Windows, chương trình MySQL đọc những tùy chọn khởi động từ những file được hiển thị tại bảng dưới đây, theo thứ tự cụ thể (những file liệt kê trước đọc trước, rồi đến những file sau được đọc sau).
+Trên Windows, chương trình MySQL đọc những tùy chọn khởi động từ những file được hiển thị tại bảng dưới đây, theo thứ tự cụ thể (những file liệt kê trước đọc trước, các file theo sau được đọc lần lượt).
 
 **Bảng những file tùy chọn 4.1 trong hệ thống Windows**
 
@@ -34,7 +34,7 @@ Trên Windows, chương trình MySQL đọc những tùy chọn khởi động t
 | ` %APPDATA%\MySQL\.mylogin.cnf` |  Tùy chọn đường dẫn đăng nhập (chỉ khách) |
 
 
-Trong bảng trên, `%PROGRAMDATA%` đại diện cho thư mục file hệ thống chứa dữ liệu ứng dụng cho tất cả người dùng trên máy chủ. Đường dẫn này mặc định tại `C:\ProgramData` trên Windows Vista trở lên `C:\Documents` và `Settings\All Users\Application Data` trên các phiên bản cũ hơn của Windows.
+Trong bảng trên, `%PROGRAMDATA%` đại diện cho thư mục file hệ thống chứa dữ liệu ứng dụng cho tất cả người dùng trên máy chủ. Đường dẫn này mặc định tại `C:\ProgramData` trên Microsoft  Windows Vista trở lên `C:\Documents` và `Settings\All Users\Application Data` trên các phiên bản cũ hơn của Microsoft  Windows.
 
 
 
@@ -51,13 +51,13 @@ Trong bảng trên, `%PROGRAMDATA%` đại diện cho thư mục file hệ thố
 
 _`BASEDIR`_ đại diện cho thư mục cài đặt nền tảng. Khi MySQL 5.7 được cài đặt bằng MySQL Installer, nó thường là``C:\_`PROGRAMDIR`_\MySQL\MySQL 5.7 Server`` tại _`PROGRAMDIR`_ đại diện cho thư mục chương trình (thường `Program Files` trong bản Windows tiếng Anh), Xem tại [Phần 2.3.3, “MySQL Installer cho Windows”](mysql-installer.html "2.3.3 MySQL Installer for Windows").
 
-Trên Unix và hệ thống tương tự, chương trình MySQL đọc file tùy chọn khởi động từ những file được ghi trong bảng dưới đây, theo thứ tự cụ thể (những file liệt kê trước đọc trước, rồi đến những file sau được đọc sau);
+Trên Unix và hệ thống giống Unix, chương trình MySQL đọc file tùy chọn khởi động từ những file được ghi trong bảng dưới đây, theo thứ tự cụ thể (những file liệt kê trước đọc trước, các file theo sau được đọc lần lượt);
 
 Ghi chú
 
-Trên nền tảng Unix, MySQL loại trừ những file cấu hình mà nó có thể ghi bởi bất cứ ai. Đây là ý định giống như một biện pháp an ninh.
+Trên nền tảng Unix, MySQL loại trừ những file cấu hình mà nó có thể ghi bởi bất cứ ai. Đây là chủ đích như một biện pháp an ninh.
 
-**Bảng 4.2 những file tùy chọn được đọc trên các hệ thống giống Unix và Unix**
+**Bảng 4.2 những file tùy chọn được đọc trên các hệ thống giống Unix và giống Unix**
 
 | Tên file | Mục đích |
 |---|---|
@@ -79,7 +79,7 @@ _`SYSCONFDIR`_ đại diện cho thư mục đã chỉ định với tùy chọn
 
 _`DATADIR`_ thường là `/usr/local/mysql/data`, mặc dù nó có thể thay đổi trên nền tảng hoặc phương thức cài đặt. Giá trị là nơi thư mục dữ liệu đã được xây dựng khi MySQL được compile, không phải nơi được chỉ định với tùy chọn [`--datadir`](server-options.html#option_mysqld_datadir) khi [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server") khởi động. Sử dụng [`--datadir`](server-options.html#option_mysqld_datadir) trong lúc chạy không ảnh hướng đến nơi mà máy chủ tìm kiếm những file tùy chọn mà nó đọc trước khi thực thi bất cứ tùy chọn nào.
 
-Nếu nhiều trường hợp của một tùy chọn được tìm thấy, trường hợp cuối cùng sẽ lấy cái trước đó, với một ngoại lệ: Với [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server"), trường hợp đầu tiên của tùy chọn [`--user`](server-options.html#option_mysqld_user) được sử dụng giống như một biện pháp an ninh, để ngặn chặn một người dùng cụ thể trong file tùy chọn từ sự ghi đè trong dòng lệnh.
+Nếu nhiều trường hợp của một tùy chọn được tìm thấy, trường hợp cuối cùng sẽ được ưu tiên với một ngoại lệ: Với [**mysqld**](mysqld.html "4.3.1 mysqld — The MySQL Server"), trường hợp đầu tiên của tùy chọn [`--user`](server-options.html#option_mysqld_user) được sử dụng giống như một biện pháp an ninh, để ngặn chặn một người dùng cụ thể trong file tùy chọn từ sự ghi đè trong dòng lệnh.
 
 Phần mô tả dươi đây của cú pháp file tùy chọn áp dụng cho những file mà bạn chỉnh sửa thủ công. Điều này không bao gồm `.mylogin.cnf`, nó được tại ra bằng [**mysql\_config\_editor**](mysql-config-editor.html "4.6.6 mysql_config_editor — MySQL Configuration Utility") và được mã hóa.
 
@@ -95,7 +95,7 @@ Những dòng trống trong những file tùy chọn bị bỏ bỏ. Những dò
     
 *   ``[_`group`_]``
     
-    _`group`_ là tên của chương trình hoặc nhóm cho cái bạn muốn đặt tùy chọn. Sau một nhóm dòng, bất cứ dòng cài đặt tùy chọn nào đều áp dụng cho đặt tên nhóm cho đến cưới cùng của file tùy chọn hoặc một nhóm dòng khác được đưa ra. Tên nhóm tùy chọn không phải trường hợp nhạy cảm.
+    _`group`_ là tên của chương trình hoặc nhóm cho cái bạn muốn đặt tùy chọn. Sau một nhóm dòng, bất cứ dòng cài đặt tùy chọn nào đều áp dụng cho đặt tên nhóm cho đến cuối cùng của file tùy chọn hoặc một nhóm dòng khác được đưa ra. Tên nhóm tùy chọn không ảnh hưởng bởi chữ viết hoa hay viết thường..
     
 *   ``_`opt_name`_``
     
